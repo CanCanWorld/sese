@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="circle_img">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="circle_img_5">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5%</item>
+    </style>
+
+    <style name="circle_img_10">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="tvTab">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="bottom_bar_selected_text">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="footButton" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">?attr/mainColor</item>
+        <item name="android:textColorSecondary">@color/_grey</item>
+    </style>
+    <!--实现BottomSheetDialog圆角效果 且无背景阴影-->
+    <style name="BottomSheetDialogBg" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="MyEditText">
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">?attr/mainColor</item>
+        <item name="android:textCursorDrawable">?attr/mainColor</item>
+    </style>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">不可以涩涩</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">搜索</string>
+    <string name="comment">热门评论</string>
+    <string name="comment_type">按热度</string>
+    <string name="send_comment">发一条友善的评论</string>
+</resources>

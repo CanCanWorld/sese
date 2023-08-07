@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_speed"
+        android:padding="14dp"
+        android:layout_marginTop="40dp"
+        android:text="倍速播放中"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:id="@+id/tvSpeed"
+        tools:visibility="visible" />
+    <ImageView
+        android:id="@+id/lock"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center|start"
+        android:layout_margin="24dp"
+        android:background="@drawable/dkplayer_shape_back_bg"
+        android:padding="@dimen/dkplayer_default_spacing"
+        android:src="@drawable/dkplayer_selector_lock_button"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/loading"
+        android:src="@drawable/load"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
+</FrameLayout>
