@@ -16,14 +16,18 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottomNavigation"-->
-<!--        app:menu="@menu/menu_bottom_item"-->
-<!--        app:backgroundTint="@color/pink"-->
-<!--        app:itemIconTint="@color/white_"-->
-<!--        app:labelVisibilityMode="selected"-->
-<!--        app:itemTextColor="@color/white_"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content" />-->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        app:menu="@menu/menu_bottom_item"
+        app:backgroundTint="?attr/mainColor"
+        app:itemIconTint="@color/white_"
+        app:labelVisibilityMode="selected"
+        app:itemIconSize="20dp"
+        app:itemPaddingBottom="4dp"
+        app:itemPaddingTop="4dp"
+        app:itemTextAppearanceActive="@style/bottom_bar_selected_text"
+        app:itemTextColor="@color/white_"
+        android:layout_width="match_parent"
+        android:layout_height="54dp" />
 
 </LinearLayout>

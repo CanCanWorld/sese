@@ -1,13 +1,19 @@
 package com.zrq.sese.ui.player
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.zrq.sese.base.BaseViewModel
 import com.zrq.sese.entity.CommentItem
 import com.zrq.sese.network.entity.RelateEntity
 import com.zrq.sese.network.entity.RelateEntityItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
+import java.lang.Exception
+import java.net.SocketTimeoutException
 import java.util.regex.Pattern
 
 class PlayerViewModel : BaseViewModel() {
@@ -25,58 +31,71 @@ class PlayerViewModel : BaseViewModel() {
     private var hls = ""
 
     fun loadVideo(path: String, callback: (String) -> Unit) {
-        Thread {
-            Log.d(TAG, "path: $path")
-            val doc = Jsoup.connect("https://xvideos.com$path").get()
-            val element = doc.getElementsByTag("script")
-            element.forEach {
-                if (it.toString().contains(".mp4", true)) {
-                    Log.d(TAG, "it: $it")
-                    val pattern = Pattern.compile("setVideoUrlHigh.*\'.*mp4.*\'")
-                    val pattern2 = Pattern.compile("setVideoUrlLow.*\'.*mp4.*\'")
-                    val pattern3 = Pattern.compile("setVideoHLS.*\'.*m3u8.*\'")
-                    val matcher = pattern.matcher(it.toString())
-                    val matcher2 = pattern2.matcher(it.toString())
-                    val matcher3 = pattern3.matcher(it.toString())
-                    while (matcher.find()) {
-                        Log.d(TAG, "matcher: ${matcher.group()}")
-                        high = matcher.group().replaceBefore("http", "").replace("'", "")
-                        Log.d(TAG, "High: $high")
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                Log.d(TAG, "path: $path")
+                val doc = Jsoup.connect("https://xvideos.com$path").get()
+                val element = doc.getElementsByTag("script")
+                element.forEach {
+                    if (it.toString().contains(".mp4", true)) {
+                        Log.d(TAG, "it: $it")
+                        val pattern = Pattern.compile("setVideoUrlHigh.*\'.*mp4.*\'")
+                        val pattern2 = Pattern.compile("setVideoUrlLow.*\'.*mp4.*\'")
+                        val pattern3 = Pattern.compile("setVideoHLS.*\'.*m3u8.*\'")
+                        val matcher = pattern.matcher(it.toString())
+                        val matcher2 = pattern2.matcher(it.toString())
+                        val matcher3 = pattern3.matcher(it.toString())
+                        while (matcher.find()) {
+                            Log.d(TAG, "matcher: ${matcher.group()}")
+                            high = matcher.group().replaceBefore("http", "").replace("'", "")
+                            Log.d(TAG, "High: $high")
 
-                    }
-                    while (matcher2.find()) {
-                        Log.d(TAG, "matcher2: ${matcher2.group()}")
-                        low = matcher2.group().replaceBefore("http", "").replace("'", "")
-                        Log.d(TAG, "Low: $low")
-                    }
-                    while (matcher3.find()) {
-                        Log.d(TAG, "matcher3: ${matcher3.group()}")
-                        hls = matcher3.group().replaceBefore("http", "").replace("'", "")
-                        Log.d(TAG, "hls: $hls")
-                    }
-                    when {
-                        hls != "" -> {
-                            callback(hls)
                         }
-                        high != "" -> {
-                            callback(high)
+                        while (matcher2.find()) {
+                            Log.d(TAG, "matcher2: ${matcher2.group()}")
+                            low = matcher2.group().replaceBefore("http", "").replace("'", "")
+                            Log.d(TAG, "Low: $low")
+                        }
+                        while (matcher3.find()) {
+                            Log.d(TAG, "matcher3: ${matcher3.group()}")
+                            hls = matcher3.group().replaceBefore("http", "").replace("'", "")
+                            Log.d(TAG, "hls: $hls")
+                        }
+                        when {
+                            hls != "" -> {
+                                callback(hls)
+                            }
+                            high != "" -> {
+                                callback(high)
+                            }
+                            else -> {
+                                callback(low)
+                            }
+                        }
+                    }
+                }
+                val script = doc.getElementById("video-player-bg")?.getElementsByTag("script")?.get(0)
+                val pattern = Pattern.compile("video_related=.*;window.wpn_categories")
+                val matcher = pattern.matcher(script.toString())
+                while (matcher.find()) {
+                    val relate = matcher.group().replace("video_related=", "").replace(";window.wpn_categories", "")
+                    val relateEntity = Gson().fromJson(relate, RelateEntity::class.java)
+                    relates.postValue(relateEntity)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                launch(Dispatchers.Main) {
+                    when (e) {
+                        is SocketTimeoutException -> {
+                            Toast.makeText(context, "请科学上网", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
-                            callback(low)
+                            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             }
-            val script = doc.getElementById("video-player-bg")?.getElementsByTag("script")?.get(0)
-            val pattern = Pattern.compile("video_related=.*;window.wpn_categories")
-            val matcher = pattern.matcher(script.toString())
-            while (matcher.find()) {
-                val relate = matcher.group().replace("video_related=", "").replace(";window.wpn_categories", "")
-                val relateEntity = Gson().fromJson(relate, RelateEntity::class.java)
-                relates.postValue(relateEntity)
-            }
-
-        }.start()
+        }
     }
 
     fun loadComment() {

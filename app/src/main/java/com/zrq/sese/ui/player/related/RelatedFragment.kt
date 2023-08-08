@@ -1,4 +1,4 @@
-package com.zrq.sese.ui.player
+package com.zrq.sese.ui.player.related
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,8 +9,8 @@ import com.zrq.sese.adapter.RelateAdapter
 import com.zrq.sese.databinding.FragmentRelatedBinding
 import com.zrq.sese.base.BaseFragment
 import com.zrq.sese.network.entity.RelateEntityItem
-import java.util.*
-import kotlin.random.Random
+import com.zrq.sese.ui.player.PlayerActivity
+import com.zrq.sese.ui.player.PlayerViewModel
 
 class RelatedFragment(
     private val viewModel: PlayerViewModel
@@ -22,7 +22,6 @@ class RelatedFragment(
     private lateinit var adapter: RelateAdapter
     private val list = mutableListOf<RelateEntityItem>()
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
 
         adapter = RelateAdapter(requireContext(), list, { binding, position ->
@@ -49,7 +48,6 @@ class RelatedFragment(
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun initEvent() {
         viewModel.relates.observe(this) {
             list.clear()

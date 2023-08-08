@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.zrq.sese.ui.player.PlayerViewModel
 import com.zrq.sese.ui.player.comment.CommentFragment
-import com.zrq.sese.ui.player.RelatedFragment
+import com.zrq.sese.ui.player.related.RelatedFragment
 
 class DetailAdapter(
     fragmentActivity: FragmentActivity,

@@ -1,9 +1,10 @@
 package com.zrq.sese.ui.home
 
 import android.content.Context
+import androidx.navigation.Navigation
+import com.zrq.sese.R
 import com.zrq.sese.databinding.ActivityHomeBinding
 import com.zrq.sese.base.BaseVmActivity
-import com.zrq.webvideo.ui.home.HomeViewModel
 
 class HomeActivity : BaseVmActivity<ActivityHomeBinding, HomeViewModel>() {
 
@@ -11,6 +12,22 @@ class HomeActivity : BaseVmActivity<ActivityHomeBinding, HomeViewModel>() {
     }
 
     override fun initEvent() {
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.item_home -> {
+                    Navigation.findNavController(this ,R.id.fragment_container)
+                        .navigate(R.id.homeFragment)
+                    true
+                }
+                R.id.item_my -> {
+                    Navigation.findNavController(this ,R.id.fragment_container)
+                        .navigate(R.id.myFragment)
+                    true
+                }
+                else -> false
+
+            }
+        }
     }
 
     override fun providedViewModel(): Class<HomeViewModel> {

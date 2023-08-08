@@ -12,9 +12,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_">#E6FFFFFF</color>
     <color name="_white">#DADADA</color>
-    <color name="purple">#9C27B0</color>
-    <color name="_purple">#BD2FD6</color>
-    <color name="__purple">#E5ACEF</color>
     <color name="pink">#FF679A</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="red">#F44336</color>
