@@ -17,7 +17,7 @@ abstract class BaseVmActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatA
         binding = providedViewBinding()
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[providedViewModel()]
-        viewModel.context = WeakReference(initViewModel())
+        viewModel.context = initViewModel()
         initData()
         initEvent()
     }

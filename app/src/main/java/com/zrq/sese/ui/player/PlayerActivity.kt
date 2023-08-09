@@ -31,7 +31,7 @@ class PlayerActivity : BaseVmActivity<ActivityPlayerBinding, PlayerViewModel>() 
 
     private lateinit var detailAdapter: DetailAdapter
 
-    private var video: VideoItem? = null
+    private var video: VideoItem = VideoItem()
     private var isDestroy = false
 
     override fun providedViewBinding(): ActivityPlayerBinding {
@@ -47,15 +47,15 @@ class PlayerActivity : BaseVmActivity<ActivityPlayerBinding, PlayerViewModel>() 
     }
 
     override fun initData() {
-        video = intent.getSerializableExtra("video") as VideoItem ?: VideoItem()
-        viewModel.id = video?.id.toString()
+        video = intent.getSerializableExtra("video") as VideoItem
+        viewModel.id = video.id
         Log.d(TAG, "initData: ${viewModel.id}")
         val transition = intent.getStringExtra("transition") ?: ""
         detailAdapter = DetailAdapter(this, viewModel)
 
         binding.apply {
             Glide.with(this@PlayerActivity)
-                .load(cover)
+                .load(video.cover)
                 .addListener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         return false
@@ -78,7 +78,7 @@ class PlayerActivity : BaseVmActivity<ActivityPlayerBinding, PlayerViewModel>() 
                 tab.text = if (position == 0) "相关推荐" else "评论"
             }.attach()
         }
-        viewModel.loadVideo(path) {
+        viewModel.loadVideo(video.path) {
             setVideoPath(it)
         }
     }
@@ -95,7 +95,7 @@ class PlayerActivity : BaseVmActivity<ActivityPlayerBinding, PlayerViewModel>() 
             override fun onPlayStateChanged(playState: Int) {
                 if (playState == STATE_PLAYING) {
                     //开始播放
-                    RoomController.historyDao().insert(HistoryTable())
+                    RoomController.historyDao().insert(HistoryTable(video.id, video.title, video.path, video.cover, video.preview, video.up,video.duration))
                 }
             }
         })

@@ -1,5 +1,6 @@
 package com.zrq.sese.base
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -26,7 +27,8 @@ abstract class BaseViewModel : ViewModel() {
         RetrofitProvider.apiService
     }
 
-    lateinit var context: WeakReference<Context>
+    @SuppressLint("StaticFieldLeak")
+    lateinit var context: Context
 
     protected fun launch(
         block: Block<Unit>,
@@ -53,17 +55,17 @@ abstract class BaseViewModel : ViewModel() {
         when (e) {
             // 网络请求失败
             is ConnectException, is SocketTimeoutException, is UnknownHostException, is HttpException -> {
-                if (showErrorToast) Toast.makeText(context.get(), "网络请求失败", Toast.LENGTH_SHORT).show()
+                if (showErrorToast) Toast.makeText(context, "网络请求失败", Toast.LENGTH_SHORT).show()
                 Log.e(TAG, "网络请求失败" + e.message)
             }
             // 数据解析错误
             is JsonParseException -> {
-                if (showErrorToast) Toast.makeText(context.get(), "数据解析错误", Toast.LENGTH_SHORT).show()
+                if (showErrorToast) Toast.makeText(context, "数据解析错误", Toast.LENGTH_SHORT).show()
                 Log.e(TAG, "数据解析错误" + e.message)
             }
             // 其他错误
             else -> {
-                if (showErrorToast) Toast.makeText(context.get(), "未知错误\n${e.message}", Toast.LENGTH_SHORT).show()
+                if (showErrorToast) Toast.makeText(context, "未知错误\n${e.message}", Toast.LENGTH_SHORT).show()
                 Log.e(TAG, e.message ?: return)
             }
 

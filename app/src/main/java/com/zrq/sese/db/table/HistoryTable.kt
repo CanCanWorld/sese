@@ -16,9 +16,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class HistoryTable(
 
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-
     @ColumnInfo(name = "vid")
     val vid: String,
 
@@ -40,4 +37,6 @@ data class HistoryTable(
     @ColumnInfo(name = "duration")
     val duration: String,
 
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
 )

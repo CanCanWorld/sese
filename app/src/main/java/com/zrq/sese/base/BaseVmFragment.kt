@@ -22,7 +22,7 @@ abstract class BaseVmFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment()
     ): View? {
         viewModel = ViewModelProvider(requireActivity())[providedViewModel()]
         binding = providedViewBinding(inflater, container)
-        viewModel.context = WeakReference(initViewModel())
+        viewModel.context = initViewModel()
         initData()
         initEvent()
         return binding.root
