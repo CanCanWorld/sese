@@ -16,6 +16,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.zrq.sese.databinding.ActivityPlayerBinding
 import com.zrq.sese.adapter.DetailAdapter
 import com.zrq.sese.base.BaseVmActivity
+import com.zrq.sese.db.MyDatabase
+import com.zrq.sese.db.RoomController
+import com.zrq.sese.db.table.HistoryTable
+import com.zrq.sese.entity.VideoItem
+import com.zrq.sese.view.MyBaseVideoView
+import com.zrq.sese.view.MyBaseVideoView.STATE_PLAYING
 import com.zrq.sese.view.MyPrepareView
 import com.zrq.sese.view.MyStandardVideoController
 import xyz.doikki.videocontroller.StandardVideoController
@@ -25,9 +31,7 @@ class PlayerActivity : BaseVmActivity<ActivityPlayerBinding, PlayerViewModel>() 
 
     private lateinit var detailAdapter: DetailAdapter
 
-    private var title = ""
-    private var path = ""
-    private var cover = ""
+    private var video: VideoItem? = null
     private var isDestroy = false
 
     override fun providedViewBinding(): ActivityPlayerBinding {
@@ -43,10 +47,8 @@ class PlayerActivity : BaseVmActivity<ActivityPlayerBinding, PlayerViewModel>() 
     }
 
     override fun initData() {
-        title = intent.getStringExtra("title") ?: ""
-        path = intent.getStringExtra("path") ?: ""
-        cover = intent.getStringExtra("cover") ?: ""
-        viewModel.id = intent.getStringExtra("id") ?: ""
+        video = intent.getSerializableExtra("video") as VideoItem ?: VideoItem()
+        viewModel.id = video?.id.toString()
         Log.d(TAG, "initData: ${viewModel.id}")
         val transition = intent.getStringExtra("transition") ?: ""
         detailAdapter = DetailAdapter(this, viewModel)
@@ -85,6 +87,18 @@ class PlayerActivity : BaseVmActivity<ActivityPlayerBinding, PlayerViewModel>() 
         viewModel.commentSum.observe(this) {
             binding.tabLayout.getTabAt(1)?.text = "评论 $it"
         }
+        binding.videoView.setOnStateChangeListener(object : MyBaseVideoView.OnStateChangeListener {
+            override fun onPlayerStateChanged(playerState: Int) {
+
+            }
+
+            override fun onPlayStateChanged(playState: Int) {
+                if (playState == STATE_PLAYING) {
+                    //开始播放
+                    RoomController.historyDao().insert(HistoryTable())
+                }
+            }
+        })
     }
 
 

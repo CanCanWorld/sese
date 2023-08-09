@@ -24,7 +24,9 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
     }
 
     override fun initEvent() {
+        binding.llHistory.setOnClickListener {
 
+        }
     }
 
 }

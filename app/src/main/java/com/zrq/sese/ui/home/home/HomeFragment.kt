@@ -1,4 +1,4 @@
-package com.zrq.sese.ui.home
+package com.zrq.sese.ui.home.home
 
 import android.content.Context
 import android.content.Intent
@@ -37,16 +37,14 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     private var page = 1
     private var url = ""
     private var keyword = ""
+    private var firstIn = true
 
     override fun initData() {
         mAdapter = HomeVideoAdapter(requireContext(), list, { binding, position ->
             val transition = "cover$position"
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(), binding.videoView, transition).toBundle()
             startActivity(Intent(requireContext(), PlayerActivity::class.java).apply {
-                putExtra("title", list[position].title)
-                putExtra("path", list[position].path)
-                putExtra("cover", list[position].cover)
-                putExtra("id", list[position].id)
+                putExtra("video",list[position])
                 binding.videoView.transitionName = transition
                 putExtra("transition", transition)
             }, options)
@@ -89,15 +87,20 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                 }
                 false
             }
-            refreshLayout.autoRefresh()
         }
         viewModel.list.observe(this) {
+            Log.d(TAG, "observe: $it")
+            if (firstIn) {
+                firstIn = false
+                return@observe
+            }
+            if (page == 1) list.clear()
             list.addAll(it)
             mAdapter.notifyDataSetChanged()
             binding.refreshLayout.finishRefresh()
             binding.refreshLayout.finishLoadMore()
         }
-        Log.d(TAG, "initEvent: ")
+        binding.refreshLayout.autoRefresh()
     }
 
     private fun load() {

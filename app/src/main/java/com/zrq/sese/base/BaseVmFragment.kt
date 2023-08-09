@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import java.lang.ref.WeakReference
 
 abstract class BaseVmFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
@@ -21,7 +22,7 @@ abstract class BaseVmFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment()
     ): View? {
         viewModel = ViewModelProvider(requireActivity())[providedViewModel()]
         binding = providedViewBinding(inflater, container)
-        viewModel.context = initViewModel()
+        viewModel.context = WeakReference(initViewModel())
         initData()
         initEvent()
         return binding.root

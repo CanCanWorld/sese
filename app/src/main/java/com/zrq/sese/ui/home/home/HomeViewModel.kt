@@ -1,4 +1,4 @@
-package com.zrq.sese.ui.home
+package com.zrq.sese.ui.home.home
 
 import android.util.Log
 import android.widget.Toast
@@ -36,8 +36,8 @@ class HomeViewModel : BaseViewModel() {
                     val videoItem = VideoItem(id, title, path, cover, preview, name, duration)
                     Log.d(TAG, "videoItem: $videoItem")
                     l.add(videoItem)
-                    list.postValue(l)
                 }
+                list.postValue(l)
             } catch (e: Exception) {
                 e.printStackTrace()
                 launch(Dispatchers.Main) {

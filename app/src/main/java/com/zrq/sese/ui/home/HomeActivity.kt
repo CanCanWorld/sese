@@ -1,41 +1,52 @@
 package com.zrq.sese.ui.home
 
-import android.content.Context
 import androidx.navigation.Navigation
+import androidx.viewpager2.widget.ViewPager2
 import com.zrq.sese.R
+import com.zrq.sese.adapter.HomeAdapter
+import com.zrq.sese.base.BaseActivity
 import com.zrq.sese.databinding.ActivityHomeBinding
-import com.zrq.sese.base.BaseVmActivity
 
-class HomeActivity : BaseVmActivity<ActivityHomeBinding, HomeViewModel>() {
+class HomeActivity : BaseActivity<ActivityHomeBinding>() {
+
+    private lateinit var adapter: HomeAdapter
 
     override fun initData() {
+        adapter = HomeAdapter(this)
+        binding.viewPager.adapter = adapter
     }
 
     override fun initEvent() {
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.item_home -> {
-                    Navigation.findNavController(this ,R.id.fragment_container)
-                        .navigate(R.id.homeFragment)
-                    true
-                }
-                R.id.item_my -> {
-                    Navigation.findNavController(this ,R.id.fragment_container)
-                        .navigate(R.id.myFragment)
-                    true
-                }
-                else -> false
 
+        binding.apply {
+
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    bottomNavigation.selectedItemId = when (position) {
+                        0 -> R.id.item_home
+                        1 -> R.id.item_my
+                        else -> R.id.item_my
+                    }
+                    super.onPageSelected(position)
+                }
+
+            })
+
+            bottomNavigation.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.item_home -> {
+                        viewPager.currentItem = 0
+                        true
+                    }
+                    R.id.item_my -> {
+                        viewPager.currentItem = 1
+                        true
+                    }
+                    else -> false
+
+                }
             }
         }
-    }
-
-    override fun providedViewModel(): Class<HomeViewModel> {
-        return HomeViewModel::class.java
-    }
-
-    override fun initViewModel(): Context {
-        return this
     }
 
     override fun providedViewBinding(): ActivityHomeBinding {

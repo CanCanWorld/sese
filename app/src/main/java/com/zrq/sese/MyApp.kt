@@ -2,6 +2,7 @@ package com.zrq.sese
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors
+import com.zrq.sese.db.RoomController
 
 /**
  *@ClassName: MyApp
@@ -10,11 +11,12 @@ import com.google.android.material.color.DynamicColors
  *@CreateTime: 2023-08-08 11:30
  *@Version: 1.0
  **/
-class MyApp: Application() {
+class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
         DynamicColors.applyToActivitiesIfAvailable(this)
+        RoomController.initRoom(this)
     }
 
 }

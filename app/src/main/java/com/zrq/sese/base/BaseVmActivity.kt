@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import java.lang.ref.WeakReference
 
 abstract class BaseVmActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatActivity() {
 
@@ -16,7 +17,7 @@ abstract class BaseVmActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatA
         binding = providedViewBinding()
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[providedViewModel()]
-        viewModel.context = initViewModel()
+        viewModel.context = WeakReference(initViewModel())
         initData()
         initEvent()
     }

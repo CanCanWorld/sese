@@ -21,11 +21,17 @@
         <entry key="..\:/android2/Sese/app/src/main/res/layout/my_dkplayer_layout_standard_controller.xml" value="0.17280524722502522" />
         <entry key="..\:/android2/Sese/app/src/main/res/menu/menu_bottom_item.xml" value="0.3567708333333333" />
         <entry key="..\:/project/own2/sese/app/src/main/res/drawable/ic__ico_reply.xml" value="0.141" />
+        <entry key="..\:/project/own2/sese/app/src/main/res/drawable/ic_gengduo.xml" value="0.134" />
+        <entry key="..\:/project/own2/sese/app/src/main/res/drawable/ic_lishijilu.xml" value="0.134" />
         <entry key="..\:/project/own2/sese/app/src/main/res/drawable/ic_sousuo.xml" value="0.141" />
+        <entry key="..\:/project/own2/sese/app/src/main/res/drawable/pressed_background_main_color.xml" value="0.134" />
+        <entry key="..\:/project/own2/sese/app/src/main/res/drawable/shape_circle_10.xml" value="0.145" />
         <entry key="..\:/project/own2/sese/app/src/main/res/layout/activity_home.xml" value="0.16286727456940223" />
         <entry key="..\:/project/own2/sese/app/src/main/res/layout/activity_player.xml" value="0.25" />
-        <entry key="..\:/project/own2/sese/app/src/main/res/layout/fragment_my.xml" value="0.16286727456940223" />
+        <entry key="..\:/project/own2/sese/app/src/main/res/layout/fragment_home.xml" value="0.18342391304347827" />
+        <entry key="..\:/project/own2/sese/app/src/main/res/layout/fragment_my.xml" value="0.25" />
         <entry key="..\:/project/own2/sese/app/src/main/res/layout/fragment_player.xml" value="0.16286727456940223" />
+        <entry key="..\:/project/own2/sese/app/src/main/res/layout/item_home_video.xml" value="0.18342391304347827" />
         <entry key="..\:/project/own2/sese/app/src/main/res/menu/menu_bottom_bar_item.xml" value="0.3175925925925926" />
       </map>
     </option>

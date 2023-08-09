@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -14,11 +15,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi"
+        }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -70,4 +77,11 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    implementation 'me.laoyuyu.aria:core:3.8.16'
+    kapt 'me.laoyuyu.aria:compiler:3.8.16'
+    implementation 'me.laoyuyu.aria:m3u8:3.8.16'
 }
