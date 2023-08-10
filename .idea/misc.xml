@@ -6,7 +6,9 @@
         <entry key="..\:/android2/Sese/app/src/main/res/drawable/ic__ico_emoji.xml" value="0.182" />
         <entry key="..\:/android2/Sese/app/src/main/res/drawable/shape_speed.xml" value="0.182" />
         <entry key="..\:/android2/Sese/app/src/main/res/drawable/shape_tv_duration.xml" value="0.182" />
+        <entry key="..\:/android2/Sese/app/src/main/res/layout/activity_history.xml" value="0.2971014492753623" />
         <entry key="..\:/android2/Sese/app/src/main/res/layout/activity_home.xml" value="0.2971014492753623" />
+        <entry key="..\:/android2/Sese/app/src/main/res/layout/activity_love.xml" value="0.2971014492753623" />
         <entry key="..\:/android2/Sese/app/src/main/res/layout/activity_main.xml" value="0.2971014492753623" />
         <entry key="..\:/android2/Sese/app/src/main/res/layout/activity_player.xml" value="0.2971014492753623" />
         <entry key="..\:/android2/Sese/app/src/main/res/layout/fragment_comment.xml" value="0.2971014492753623" />
@@ -24,12 +26,9 @@
         <entry key="..\:/project/own2/sese/app/src/main/res/drawable/ic_gengduo.xml" value="0.134" />
         <entry key="..\:/project/own2/sese/app/src/main/res/drawable/ic_lishijilu.xml" value="0.134" />
         <entry key="..\:/project/own2/sese/app/src/main/res/drawable/ic_sousuo.xml" value="0.141" />
-        <entry key="..\:/project/own2/sese/app/src/main/res/drawable/ic_weiguanzhu.xml" value="0.139" />
         <entry key="..\:/project/own2/sese/app/src/main/res/drawable/pressed_background_main_color.xml" value="0.134" />
         <entry key="..\:/project/own2/sese/app/src/main/res/drawable/shape_circle_10.xml" value="0.145" />
-        <entry key="..\:/project/own2/sese/app/src/main/res/layout/activity_history.xml" value="0.1875" />
         <entry key="..\:/project/own2/sese/app/src/main/res/layout/activity_home.xml" value="0.16286727456940223" />
-        <entry key="..\:/project/own2/sese/app/src/main/res/layout/activity_love.xml" value="0.18070652173913043" />
         <entry key="..\:/project/own2/sese/app/src/main/res/layout/activity_player.xml" value="0.25" />
         <entry key="..\:/project/own2/sese/app/src/main/res/layout/fragment_home.xml" value="0.18342391304347827" />
         <entry key="..\:/project/own2/sese/app/src/main/res/layout/fragment_my.xml" value="0.25" />

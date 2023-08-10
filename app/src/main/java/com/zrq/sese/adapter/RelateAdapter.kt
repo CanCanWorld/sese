@@ -2,6 +2,7 @@ package com.zrq.sese.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -32,18 +33,9 @@ class RelateAdapter(
     override fun onBindViewHolder(holder: VH<ItemRelateBinding>, position: Int) {
         val item = list[position]
         holder.binding.apply {
-
+            videoView.setPlayerBackgroundColor(Color.BLACK)
             Glide.with(context)
                 .load(item.il)
-                .addListener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        return false
-                    }
-
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        return false
-                    }
-                })
                 .into(object : SimpleTarget<Drawable>() {
                     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                         videoView.setPlayerBackground(resource)

@@ -51,5 +51,11 @@ class HistoryActivity : BaseVmActivity<ActivityHistoryBinding, HistoryViewModel>
     }
 
     override fun initEvent() {
+        binding.refreshLayout.setOnRefreshListener {
+            list.clear()
+            list.addAll(RoomController.historyDao().queryAll().reversed())
+            adapter.notifyDataSetChanged()
+            it.finishRefresh()
+        }
     }
 }

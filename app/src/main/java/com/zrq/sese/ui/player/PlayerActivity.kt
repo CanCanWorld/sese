@@ -82,6 +82,8 @@ class PlayerActivity : BaseVmActivity<ActivityPlayerBinding, PlayerViewModel>() 
         viewModel.loadVideo(video.path) {
             setVideoPath(it)
         }
+        isLove = RoomController.loveDao().container(video.id)
+        binding.fabLove.setImageResource(if (isLove) R.drawable.ic_yiguanzhu else R.drawable.ic_weiguanzhu)
     }
 
     override fun initEvent() {
@@ -111,18 +113,22 @@ class PlayerActivity : BaseVmActivity<ActivityPlayerBinding, PlayerViewModel>() 
                 R.id.item_full -> {
                     binding.videoView.startFullScreen()
                 }
-                else -> {}
+                else -> {
+                }
             }
             false
         }
         binding.fabLove.setOnClickListener {
+            Log.d(TAG, "fabLove: ")
             isLove = if (isLove) {
-                RoomController.loveDao().delete(video.toLove())
-                binding.fabLove.setBackgroundResource(R.drawable.ic_weiguanzhu)
+                val delete = RoomController.loveDao().delete(video.toLove())
+                Log.d(TAG, "delete: $delete")
+                binding.fabLove.setImageResource(R.drawable.ic_weiguanzhu)
                 false
             } else {
-                RoomController.loveDao().insert(video.toLove())
-                binding.fabLove.setBackgroundResource(R.drawable.ic_yiguanzhu)
+                val insert = RoomController.loveDao().insert(video.toLove())
+                Log.d(TAG, "insert: $insert")
+                binding.fabLove.setImageResource(R.drawable.ic_yiguanzhu)
                 true
             }
         }

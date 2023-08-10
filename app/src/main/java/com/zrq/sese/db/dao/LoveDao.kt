@@ -16,13 +16,15 @@ interface LoveDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg item: LoveTable)
 
-    @Query("Select * from HistoryTable")
+    @Query("Select * from LoveTable")
     fun queryAll(): MutableList<LoveTable>
 
     @Update
-    fun update(item: LoveTable)
+    fun update(item: LoveTable): Int
 
     @Delete
-    fun delete(item: LoveTable)
+    fun delete(item: LoveTable): Int
 
+    @Query("Select * from LoveTable where id = :id")
+    fun container(id: String): Boolean
 }

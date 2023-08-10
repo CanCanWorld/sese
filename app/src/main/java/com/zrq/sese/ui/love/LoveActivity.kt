@@ -2,6 +2,7 @@ package com.zrq.sese.ui.love
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.ActivityOptionsCompat
 import com.zrq.sese.adapter.HistoryVideoAdapter
 import com.zrq.sese.adapter.LoveVideoAdapter
@@ -50,10 +51,23 @@ class LoveActivity : BaseVmActivity<ActivityLoveBinding, LoveViewModel>() {
         binding.recyclerView.adapter = adapter
 
         list.clear()
-        list.addAll(RoomController.loveDao().queryAll().reversed())
+        val reversed = RoomController.loveDao().queryAll().reversed()
+        Log.d(TAG, "reversed: $reversed")
+        list.addAll(reversed)
         adapter.notifyDataSetChanged()
     }
 
     override fun initEvent() {
+        binding.refreshLayout.setOnRefreshListener {
+            list.clear()
+            val reversed = RoomController.loveDao().queryAll().reversed()
+            list.addAll(reversed)
+            adapter.notifyDataSetChanged()
+            it.finishRefresh()
+        }
+    }
+
+    companion object {
+        private const val TAG = "LoveActivity"
     }
 }
