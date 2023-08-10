@@ -1,6 +1,5 @@
 package com.zrq.sese.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -13,28 +12,28 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.zrq.sese.databinding.ItemRelateBinding
-import com.zrq.sese.network.entity.RelateEntityItem
-import com.zrq.sese.utils.Covert.picToVideo
+import com.zrq.sese.databinding.ItemHomeVideoBinding
+import com.zrq.sese.db.table.HistoryTable
 
-class RelateAdapter(
+class HistoryVideoAdapter(
     private val context: Context,
-    private val list: MutableList<RelateEntityItem>,
-    private val onItemClick: (ItemRelateBinding, Int) -> Unit,
+    private val list: MutableList<HistoryTable>,
+    private val onItemClick: (ItemHomeVideoBinding, Int) -> Unit,
     private val onItemLongClick: (Int) -> Unit,
-) : RecyclerView.Adapter<VH<ItemRelateBinding>>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH<ItemRelateBinding> {
-        val inflate = ItemRelateBinding.inflate(LayoutInflater.from(context), parent, false)
+) : RecyclerView.Adapter<VH<ItemHomeVideoBinding>>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH<ItemHomeVideoBinding> {
+        val inflate = ItemHomeVideoBinding.inflate(LayoutInflater.from(context), parent, false)
         return VH(inflate)
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: VH<ItemRelateBinding>, position: Int) {
+    override fun onBindViewHolder(holder: VH<ItemHomeVideoBinding>, position: Int) {
         val item = list[position]
         holder.binding.apply {
-
+            tvTitle.text = item.title
+            tvUpName.text = item.up
+            tvDuration.text = item.duration
             Glide.with(context)
-                .load(item.il)
+                .load(item.cover)
                 .addListener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         return false
@@ -52,16 +51,16 @@ class RelateAdapter(
 
             if (item.isPlayer) {
                 videoView.release()
-                videoView.setUrl(picToVideo(item.i))
+                videoView.setUrl(item.preview)
                 videoView.setLooping(true)
                 videoView.start()
             } else {
                 videoView.release()
             }
-            tvName.text = item.pn
-            tvTitle.text = item.tf
-            tvDuration.text = item.d
-            root.setOnClickListener { onItemClick(this, position) }
+
+            root.setOnClickListener {
+                onItemClick(this, position)
+            }
             root.setOnLongClickListener {
                 onItemLongClick(position)
                 true
@@ -72,5 +71,4 @@ class RelateAdapter(
     override fun getItemCount(): Int {
         return list.size
     }
-
 }

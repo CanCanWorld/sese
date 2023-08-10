@@ -12,6 +12,7 @@ import androidx.core.app.ActivityOptionsCompat
 import com.zrq.sese.databinding.FragmentHomeBinding
 import com.zrq.sese.adapter.HomeVideoAdapter
 import com.zrq.sese.base.BaseVmFragment
+import com.zrq.sese.db.table.HistoryTable
 import com.zrq.sese.entity.VideoItem
 import com.zrq.sese.ui.player.PlayerActivity
 

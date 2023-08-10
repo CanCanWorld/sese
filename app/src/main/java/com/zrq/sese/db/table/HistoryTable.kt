@@ -3,7 +3,10 @@ package com.zrq.sese.db.table
 import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.zrq.sese.entity.VideoItem
+import java.io.Serializable
 
 /**
  *@ClassName: VideoTable
@@ -16,27 +19,35 @@ import androidx.room.PrimaryKey
 @Entity
 data class HistoryTable(
 
-    @ColumnInfo(name = "vid")
-    val vid: String,
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: String = "",
 
     @ColumnInfo(name = "title")
-    val title: String,
+    var title: String = "",
 
     @ColumnInfo(name = "path")
-    val path: String,
+    var path: String = "",
 
     @ColumnInfo(name = "cover")
-    val cover: String,
+    var cover: String = "",
 
     @ColumnInfo(name = "preview")
-    val preview: String,
+    var preview: String = "",
 
     @ColumnInfo(name = "up")
-    val up: String,
+    var up: String = "",
 
     @ColumnInfo(name = "duration")
-    val duration: String,
+    var duration: String = "",
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
-)
+    @Ignore
+    var isPlayer: Boolean = false,
+
+    ) {
+    constructor() : this("", "", "", "", "", "", "", false)
+
+    fun toVideoItem(): VideoItem {
+        return VideoItem(id, title, path, cover, preview, up, duration, isPlayer)
+    }
+}

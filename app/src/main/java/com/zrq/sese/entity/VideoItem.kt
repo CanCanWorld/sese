@@ -1,6 +1,8 @@
 package com.zrq.sese.entity
 
 import androidx.annotation.Keep
+import com.zrq.sese.db.table.HistoryTable
+import com.zrq.sese.db.table.LoveTable
 import java.io.Serializable
 
 @Keep
@@ -21,4 +23,12 @@ data class VideoItem(
     val duration: String = "",
 
     var isPlayer: Boolean = false
-) : Serializable
+) : Serializable {
+    fun toHistory(): HistoryTable {
+        return HistoryTable(id, title, path, cover, preview, up, duration, isPlayer)
+    }
+
+    fun toLove(): LoveTable {
+        return LoveTable(id, title, path, cover, preview, up, duration, isPlayer)
+    }
+}
