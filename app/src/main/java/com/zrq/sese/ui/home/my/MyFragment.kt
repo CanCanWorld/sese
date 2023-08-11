@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.zrq.sese.databinding.FragmentMyBinding
 import com.zrq.sese.base.BaseVmFragment
+import com.zrq.sese.ui.download.DownloadActivity
 import com.zrq.sese.ui.history.HistoryActivity
 import com.zrq.sese.ui.love.LoveActivity
 
@@ -34,6 +35,7 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
             startActivity(Intent(requireActivity(), LoveActivity::class.java))
         }
         binding.llDownload.setOnClickListener {
+            startActivity(Intent(requireActivity(), DownloadActivity::class.java))
         }
     }
 

@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sese">
         <activity
+            android:name=".ui.download.DownloadActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.love.LoveActivity"
             android:exported="true" />
         <activity
@@ -20,7 +23,7 @@
             android:name=".ui.player.PlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true">
